@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  colmap:
+    image: colmap:latest
+    container_name: colmap
+
+    working_dir: /working
+    volumes:
+      - ${HOST_DIR}:/working
+      - /tmp/.X11-unix/:/tmp/.X11-unix
+      - ${HOME}/.Xauthority:/root/.Xauthority:ro
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=/root/.Xauthority
+    stdin_open: true
+    tty: true
+    network_mode: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    command: sleep infinity
