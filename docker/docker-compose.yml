@@ -9,10 +9,10 @@ services:
     volumes:
       - ${HOST_DIR}:/working
       - /tmp/.X11-unix/:/tmp/.X11-unix
-      - ${HOME}/.Xauthority:/root/.Xauthority:ro
+      - ${HOME}/.Xauthority:/home/colmap/.Xauthority:ro
     environment:
       - DISPLAY=${DISPLAY}
-      - XAUTHORITY=/root/.Xauthority
+      - XAUTHORITY=/home/colmap/.Xauthority
     stdin_open: true
     tty: true
     network_mode: host
