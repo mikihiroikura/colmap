@@ -38,6 +38,12 @@ Getting Started
    or use your own images.
 3. Use the **automatic reconstruction** to easily build models
    with a single click or command.
+4. Docker install as follows
+```
+docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g)  -t colmap:latest -f docker/Dockerfile .
+
+docker compose -f docker/docker-compose.yml --env-file .env up -d
+```
 
 Documentation
 -------------

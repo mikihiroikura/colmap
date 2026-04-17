@@ -113,3 +113,19 @@ RUN apt-get update && \
 # a library. For instance, CMake will be able to find COLMAP easily with the
 # command: find_package(COLMAP REQUIRED).
 COPY --from=builder /colmap-install/ /usr/local/
+
+# Add User ID and Group ID
+ARG UNAME=colmap
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+
+# Add User into sudoers, can run sudo command without password
+RUN apt update && apt install -y sudo
+RUN usermod -aG sudo ${UNAME}
+RUN echo "${UNAME} ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${UNAME}
+
+WORKDIR /workspace
+
+USER ${UNAME}
