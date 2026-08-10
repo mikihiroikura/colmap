@@ -45,6 +45,24 @@ docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g)  -t colmap:latest
 docker compose -f docker/docker-compose.yml --env-file .env up -d
 ```
 
+Easy run
+-------------
+1. Store the images of the project in the following structure:
+```
+DATASET_PATH=/path/to/project/...
++── images
+│   +── image1.jpg
+│   +── image2.jpg
+│   +── ...
+│   +── imageN.jpg
+```
+2. Run automatic reconstruction
+```
+colmap automatic_reconstructor \
+    --workspace_path $DATASET_PATH \
+    --image_path $DATASET_PATH/images
+```
+
 Documentation
 -------------
 
